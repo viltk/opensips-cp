@@ -35,10 +35,10 @@ This guide uses the following example addresses:
 
 | Host | Address | Purpose |
 |---|---|---|
-| `vm-lab1` | `192.168.1.2` | os-node1 |
-| `vm-lab2` | `192.168.1.3` | os-node2 |
-| `vm-lab3` | `192.168.1.4` | os-node3 |
-| `vm-lab4` | `192.168.1.5` | OCP management server |
+| `os-node1` | `192.168.1.2` | os-node1 |
+| `os-node2` | `192.168.1.3` | os-node2 |
+| `os-node3` | `192.168.1.4` | os-node3 |
+| `os-node4` | `192.168.1.5` | OCP management server |
 
 Replace these addresses with addresses appropriate for your environment.
 
