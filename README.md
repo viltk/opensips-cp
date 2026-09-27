@@ -318,7 +318,7 @@ http://OCP_SERVER_IP/cp/
 For example:
 
 ```text
-http://192.168.1.5/cp/
+http://192.168.1.2/cp/
 ```
 
 If `/cp/` returns `404`, check:
@@ -434,7 +434,7 @@ Run from the OCP server:
 ```bash
 nc -vz 192.168.1.2 8888
 nc -vz 192.168.1.3 8888
-nc -vz 192.168.1.5 8888
+nc -vz 192.168.1.4 8888
 ```
 
 All three connections should succeed.
@@ -479,7 +479,7 @@ Create:
 sudo nano /etc/monit/conf.d/opensips-ocp
 ```
 
-Example for Node 1:
+Example for Node:
 
 ```text
 set httpd port 2812
@@ -498,7 +498,7 @@ For the example environment:
 set httpd port 2812
     use address 192.168.1.2
     allow 192.168.1.1/24
-    allow 172.168.1.5 
+    allow 172.168.1.5  # opensips-cp IP address
     allow ocpadmin:"MyWeryStrongPassword.123!"
 
 check process opensips
@@ -560,7 +560,7 @@ Then test from the OCP server:
 ```bash
 curl -v \
     -u 'ocpadmin:CHANGE_THIS_MONIT_PASSWORD' \
-    http://192.168.1.5:2812/
+    http://192.168.1.2:2812/
 ```
 
 A successful request should return the Monit web interface.
@@ -577,7 +577,7 @@ nc -vz 192.168.1.4 2812
 
 # Part IV — Add SIP-MESH Nodes to OCP
 
-## 16. Add Node 1
+## 16. Add first node
 
 In OCP, create a system with name you like:
 
@@ -626,26 +626,11 @@ My-Awesome-System BOX description you like.
 
 OCP is an administrative interface and should not be exposed directly to the public Internet.
 
-Recommended design:
-
-```text
-Internet
-   X
-   │
-   │ blocked
-   │
-Management/VPN Network
-   │
-   ├── OCP
-   │
-   ├── TCP/8888 → OpenSIPS MI
-   │
-   └── TCP/2812 → Monit
 ```
 
 At minimum:
 
-- restrict OCP access to the management network or VPN;
+- restrict OCP access to the network;
 - restrict OpenSIPS TCP/8888 to the OCP server;
 - restrict Monit TCP/2812 to the OCP server;
 - use unique strong passwords;
